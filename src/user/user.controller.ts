@@ -1,12 +1,14 @@
-import { Controller, Get, Post } from "@nestjs/common";
+import { Body, Controller, Get, Post } from "@nestjs/common";
 import { UserService } from "./user.service";
+import { CreateUserCommand } from "./domain";
 
 @Controller("user")
 export class UserController {
+  // eslint-disable-next-line no-unused-vars
   constructor(private service: UserService) {}
   @Post()
-  async register() {
-    return await this.service.register();
+  async register(@Body() command: CreateUserCommand) {
+    return await this.service.register(command);
   }
   @Get()
   async findAll() {
