@@ -1,10 +1,9 @@
 import { Inject, Injectable } from "@nestjs/common";
-import { InjectModel } from "@nestjs/sequelize";
-import { User } from "./user.model";
-import { randomUUID } from "crypto";
+import { User } from "./domain/user.model";
 
 @Injectable()
 export class UserService {
+  // eslint-disable-next-line no-unused-vars
   constructor(@Inject("USER_REPOSITORY") private userModel: typeof User) {}
   async register() {
     return await this.userModel.create({
