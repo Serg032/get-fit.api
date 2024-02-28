@@ -3,10 +3,19 @@ import { Column, Model, Table } from "sequelize-typescript";
 @Table({ tableName: "user" })
 export class User extends Model {
   @Column
-  firstName: string;
+  name: string;
 
   @Column
-  lastName: string;
+  lastname: string;
+
+  @Column({ allowNull: false, unique: true })
+  email: string;
+
+  @Column
+  password: string;
+
+  @Column({ allowNull: false, unique: true })
+  username: string;
 
   @Column({ defaultValue: true })
   isActive: boolean;
