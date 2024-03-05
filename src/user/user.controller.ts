@@ -8,6 +8,7 @@ export class UserController {
   constructor(private service: UserService) {}
   @Post()
   async register(@Body() command: CreateUserCommand) {
+    console.log("command", command);
     return await this.service.register(command);
   }
   @Get()
