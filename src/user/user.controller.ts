@@ -5,7 +5,7 @@ import {
   UserService,
 } from "./user.service";
 import { CreateUserCommand, LoginCommand } from "./domain";
-import { AuthService } from "src/auth/auth/auth.service";
+import { AuthService, LoginResponse } from "src/auth/auth/auth.service";
 
 @Controller("user")
 export class UserController {
@@ -28,7 +28,7 @@ export class UserController {
   }
 
   @Post("login")
-  public async login(@Body() command: LoginCommand) {
-    return this.authService.signIn(command);
+  public async login(@Body() command: LoginCommand): Promise<LoginResponse> {
+    return (await this.authService.signIn(command)) as LoginResponse;
   }
 }

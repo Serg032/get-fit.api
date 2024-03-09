@@ -12,6 +12,8 @@ export interface FailedResponse {
   statusCode: 400;
 }
 
+export type query = "lastname" | "name" | "email" | "username";
+
 @Injectable()
 export class UserService {
   // eslint-disable-next-line no-unused-vars
@@ -71,6 +73,6 @@ export class UserService {
   }
 
   public async findOne(query: any) {
-    return this.userModel.findOne({ where: query });
+    return this.userModel.findOne(query);
   }
 }

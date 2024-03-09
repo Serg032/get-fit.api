@@ -8,7 +8,4 @@ export interface User {
 
 export interface CreateUserCommand extends User {}
 
-export interface LoginCommand {
-  username: string;
-  password: string;
-}
+export type LoginCommand = Omit<User, "name" | "lastname" | "email">;
