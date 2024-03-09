@@ -7,3 +7,8 @@ export interface User {
 }
 
 export interface CreateUserCommand extends User {}
+
+export interface LoginCommand {
+  username: string;
+  password: string;
+}

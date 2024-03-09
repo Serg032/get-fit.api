@@ -4,20 +4,31 @@ import {
   SuccessfullResponse,
   UserService,
 } from "./user.service";
-import { CreateUserCommand } from "./domain";
+import { CreateUserCommand, LoginCommand } from "./domain";
+import { AuthService } from "src/auth/auth/auth.service";
 
 @Controller("user")
 export class UserController {
-  // eslint-disable-next-line no-unused-vars
-  constructor(private service: UserService) {}
+  constructor(
+    // eslint-disable-next-line no-unused-vars
+    private userService: UserService,
+    // eslint-disable-next-line no-unused-vars
+    private authService: AuthService,
+  ) {}
   @Post()
-  async register(
+  public async register(
     @Body() command: CreateUserCommand,
   ): Promise<SuccessfullResponse | FailedResponse> {
-    return await this.service.register(command);
+    return await this.userService.register(command);
   }
+
   @Get()
-  async findAll() {
-    return await this.service.findAll();
+  public async findAll() {
+    return await this.userService.findAll();
+  }
+
+  @Post("login")
+  public async login(@Body() command: LoginCommand) {
+    return this.authService.signIn(command);
   }
 }

@@ -16,7 +16,7 @@ export interface FailedResponse {
 export class UserService {
   // eslint-disable-next-line no-unused-vars
   constructor(@Inject("USER_REPOSITORY") private userModel: typeof User) {}
-  async register(
+  public async register(
     command: CreateUserCommand,
   ): Promise<SuccessfullResponse | FailedResponse> {
     try {
@@ -66,7 +66,11 @@ export class UserService {
     }
   }
 
-  async findAll(): Promise<User[]> {
+  public async findAll(): Promise<User[]> {
     return await this.userModel.findAll();
+  }
+
+  public async findOne(query: any) {
+    return this.userModel.findOne({ where: query });
   }
 }
