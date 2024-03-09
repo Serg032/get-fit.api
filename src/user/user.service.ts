@@ -20,6 +20,18 @@ export class UserService {
     command: CreateUserCommand,
   ): Promise<SuccessfullResponse | FailedResponse> {
     try {
+      if (
+        !command.email ||
+        !command.lastname ||
+        !command.name ||
+        !command.password ||
+        !command.username
+      ) {
+        return {
+          message: "All fields are required",
+          statusCode: 400,
+        };
+      }
       const createdUserByUsername = await this.userModel.findOne({
         where: {
           username: command.username,
@@ -32,16 +44,9 @@ export class UserService {
         },
       });
 
-      if (createdUserByEmail) {
+      if (createdUserByEmail || createdUserByUsername) {
         return {
-          message: "User with that email already exists",
-          statusCode: 400,
-        };
-      }
-
-      if (createdUserByUsername) {
-        return {
-          message: "User with that username already exists",
+          message: "User with that email or username already exists",
           statusCode: 400,
         };
       }
