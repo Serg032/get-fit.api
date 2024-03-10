@@ -31,4 +31,9 @@ export class UserController {
   public async login(@Body() command: LoginCommand): Promise<LoginResponse> {
     return (await this.authService.signIn(command)) as LoginResponse;
   }
+
+  @Post("auth")
+  public authenticate(@Body("token") token: string) {
+    return this.authService.authenticateUser(token);
+  }
 }

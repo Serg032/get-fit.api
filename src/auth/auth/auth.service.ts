@@ -11,6 +11,7 @@ export interface LoginResponse {
 
 @Injectable()
 export class AuthService {
+  private secretKey = "secretKey";
   constructor(private usersService: UserService) {}
 
   async signIn(command: LoginCommand): Promise<LoginResponse> {
@@ -23,7 +24,11 @@ export class AuthService {
     const payload = { sub: user.id, username: user.username };
     return {
       flag: true,
-      token: jwt.sign(payload, "secretKey"),
+      token: jwt.sign(payload, this.secretKey),
     };
+  }
+
+  public authenticateUser(token: string) {
+    return jwt.verify(token, this.secretKey);
   }
 }
