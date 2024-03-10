@@ -7,4 +7,7 @@ export class Exercise extends Model {
 
   @Column
   type: string;
+
+  @Column
+  method: string;
 }

@@ -1,6 +1,7 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { User } from "./domain/user.model";
 import { CreateUserCommand } from "./domain";
+import { userProvided } from "./user-providers";
 
 export interface SuccessfullResponse {
   message: string;
@@ -17,7 +18,7 @@ export type query = "lastname" | "name" | "email" | "username";
 @Injectable()
 export class UserService {
   // eslint-disable-next-line no-unused-vars
-  constructor(@Inject("USER_REPOSITORY") private userModel: typeof User) {}
+  constructor(@Inject(userProvided) private userModel: typeof User) {}
   public async register(
     command: CreateUserCommand,
   ): Promise<SuccessfullResponse | FailedResponse> {

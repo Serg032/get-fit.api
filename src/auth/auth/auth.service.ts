@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { Injectable } from "@nestjs/common";
-import { LoginCommand } from "src/user/domain";
-import { UserService } from "src/user/user.service";
+import { LoginCommand } from "src/entities/user/domain";
+import { UserService } from "src/entities/user/user.service";
 import * as jwt from "jsonwebtoken";
 
 export interface LoginResponse {
