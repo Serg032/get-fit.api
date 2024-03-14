@@ -1,20 +1,20 @@
 import { Inject, Injectable } from "@nestjs/common";
-import { Method } from "./domain/method.model";
-import { CreateMethodCommand } from "./domain";
+import { Mode } from "./domain/mode.model";
+import { CreateModeCommand } from "./domain";
 import {
   FailedResponse,
   SuccessfullResponse,
 } from "src/entities/user/user.service";
-import { methodProvided } from "./method-providers";
+import { modeProvided } from "./mode-providers";
 
 @Injectable()
-export class MethodService {
+export class ModeService {
   constructor(
     // eslint-disable-next-line no-unused-vars
-    @Inject(methodProvided) private methodModel: typeof Method,
+    @Inject(modeProvided) private modeModel: typeof Mode,
   ) {}
   public async create(
-    command: CreateMethodCommand,
+    command: CreateModeCommand,
   ): Promise<SuccessfullResponse | FailedResponse> {
     try {
       if (!command.name) {
@@ -23,48 +23,48 @@ export class MethodService {
           statusCode: 400,
         };
       }
-      const createdMethodByName = await this.methodModel.findOne({
+      const createdModeByName = await this.modeModel.findOne({
         where: {
           name: command.name,
         },
       });
 
-      if (createdMethodByName) {
+      if (createdModeByName) {
         return {
-          message: "Method with that name already exists",
+          message: "Mode with that name already exists",
           statusCode: 400,
         };
       }
 
-      await this.methodModel.create({
+      await this.modeModel.create({
         name: command.name,
       });
 
-      return { message: "Method created successfull", statusCode: 201 };
+      return { message: "Mode created successfull", statusCode: 201 };
     } catch (error) {
       throw error;
     }
   }
 
-  public async findAll(): Promise<Method[]> {
+  public async findAll(): Promise<Mode[]> {
     try {
-      return await this.methodModel.findAll();
+      return await this.modeModel.findAll();
     } catch (error) {
       throw error;
     }
   }
 
-  public async findById(id: string): Promise<Method | FailedResponse> {
+  public async findById(id: string): Promise<Mode | FailedResponse> {
     try {
-      const method = await this.methodModel.findByPk(id);
-      if (!method) {
+      const mode = await this.modeModel.findByPk(id);
+      if (!mode) {
         return {
-          message: "Method doesn't exist",
+          message: "Mode doesn't exist",
           statusCode: 400,
         };
       }
 
-      return method;
+      return mode;
     } catch (error) {
       throw error;
     }

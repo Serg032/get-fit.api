@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize-typescript";
 import { User } from "../entities/user/domain/user.model";
 import { Exercise } from "src/entities/exercise/domain/exercice.model";
-import { Method } from "src/entities/method/domain/method.model";
+import { Mode } from "src/entities/mode/domain/mode.model";
 
 export const databaseProviders = [
   {
@@ -15,7 +15,7 @@ export const databaseProviders = [
         password: "getfit",
         database: "getfit",
       });
-      sequelize.addModels([User, Exercise, Method]);
+      sequelize.addModels([User, Exercise, Mode]);
       await sequelize.sync();
       return sequelize;
     },
